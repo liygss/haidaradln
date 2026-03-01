@@ -23,12 +23,19 @@
             --spidey-web: #e0e4e8;  /* Web Silver */
             --font-term: 'Fira Code', monospace;
             --font-body: 'Outfit', sans-serif;
+            /* Ikon Topeng Kustom */
+            --spidey-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23e6002b" d="M50,0 C65,0 75,10 75,25 L75,75 C75,90 65,100 50,100 C35,100 25,90 25,75 L25,25 C25,10 35,0 50,0 Z M50,15 L15,50 L50,85 L85,50 Z"/></svg>');
         }
 
         /* --- CUSTOM SCROLLBAR --- */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--spidey-red); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { 
+            background: var(--spidey-red); border-radius: 4px;
+            /* Tambahkan ikon laba-laba kecil di thumb scrollbar */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23fff" d="M50,0 Q60,10 50,20 Q40,10 50,0 Z M50,100 Q60,90 50,80 Q40,90 50,100 Z M0,50 Q10,60 20,50 Q10,40 0,50 Z M100,50 Q90,60 80,50 Q90,40 100,50 Z"/></svg>');
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+        }
         ::-webkit-scrollbar-thumb:hover { background: var(--spidey-blue); }
 
         /* --- GLOBAL RESET --- */
@@ -66,6 +73,17 @@
                               linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
         }
+        /* Tambahkan visual jaring laba-laba besar di sudut kiri bawah */
+        #bg-canvas::before {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 300px; height: 300px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="none" stroke="%23333" stroke-width="0.5" d="M0,0 L100,100 M100,0 L0,100 M50,0 L50,100 M0,50 L100,50 M25,0 L75,100 M75,0 L25,100 M0,25 L100,75 M0,75 L100,25"/><circle cx="50" cy="50" r="10" fill="none" stroke="%23333" stroke-width="0.5"/><circle cx="50" cy="50" r="20" fill="none" stroke="%23333" stroke-width="0.5"/><circle cx="50" cy="50" r="30" fill="none" stroke="%23333" stroke-width="0.5"/></svg>');
+            background-size: cover; opacity: 0.15; z-index: -1; transform: translate(-20%, 20%);
+        }
+        /* Tambahkan siluet Spiderman halus di latar belakang */
+        #bg-canvas::after {
+            content: '\f210'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            position: absolute; top: 10%; right: 5%; font-size: 15rem; color: var(--bg-panel); opacity: 0.1; z-index: -2;
+        }
 
         /* --- NAVIGATION BAR --- */
         nav {
@@ -75,6 +93,12 @@
         .logo { font-size: 1.5rem; font-family: var(--font-body); font-weight: 700; color: #fff; text-shadow: 0 0 10px var(--spidey-red); display: flex; align-items: center; gap: 10px; }
         .logo i { color: var(--spidey-red); }
         .logo span { color: var(--spidey-blue); }
+        /* Ikon Topeng Di Logo */
+        .spidey-mask-icon::before {
+            content: ''; display: inline-block; width: 24px; height: 24px;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            vertical-align: middle; margin-right: 8px;
+        }
         
         .nav-links { display: flex; align-items: center; }
         .nav-links a { 
@@ -127,6 +151,13 @@
         .terminal-box { 
             background: rgba(10, 10, 15, 0.9); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; margin-bottom: 2.5rem; 
             font-family: var(--font-term); box-shadow: 0 15px 35px rgba(0,0,0,0.6); overflow: hidden; backdrop-filter: blur(10px);
+            position: relative;
+        }
+        /* Tambahkan visual jaring halus di sekitar terminal */
+        .terminal-box::before {
+            content: ''; position: absolute; top: -10px; right: 10px; width: 40px; height: 40px;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            opacity: 0.4; z-index: 10;
         }
         .terminal-header { background: #111116; padding: 10px 15px; display: flex; gap: 8px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
@@ -141,19 +172,29 @@
         .hero-img-box { width: 380px; height: 380px; margin: 0 auto; position: relative; border-radius: 50%; padding: 10px; }
         .hero-img-box::before { 
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            border-radius: 50%; background: linear-gradient(135deg, var(--spidey-blue), var(--spidey-red));
-            animation: spin 5s linear infinite; z-index: 0;
+            border-radius: 50%;
+            /* Ganti bingkai berputar dengan jaring laba-laba berputar */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="none" stroke="%23e6002b" stroke-width="0.5" d="M0,0 L100,100 M100,0 L0,100 M50,0 L50,100 M0,50 L100,50 M25,0 L75,100 M75,0 L25,100 M0,25 L100,75 M0,75 L100,25"/><circle cx="50" cy="50" r="10" fill="none" stroke="%23e6002b" stroke-width="0.5"/><circle cx="50" cy="50" r="20" fill="none" stroke="%23e6002b" stroke-width="0.5"/><circle cx="50" cy="50" r="30" fill="none" stroke="%23e6002b" stroke-width="0.5"/></svg>');
+            background-size: cover;
+            animation: spin-web 20s linear infinite; z-index: 0;
+            top: -20px; left: -20px; width: calc(100% + 40px); height: calc(100% + 40px);
         }
+        @keyframes spin-web { 100% { transform: rotate(360deg); } }
         .hero-img-box::after {
-            content: ''; position: absolute; top: 4px; left: 4px; width: calc(100% - 8px); height: calc(100% - 8px);
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-main); border-radius: 50%; z-index: 1;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
         .hero-img-box img { 
             width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
             position: relative; z-index: 2; border: 4px solid transparent; transition: 0.5s ease;
         }
         .hero-img-box:hover img { transform: scale(1.05); box-shadow: 0 0 30px var(--spidey-red); }
+        /* Tambahkan jaring laba-laba besar di latar belakang visual hero image container */
+        .hero-image-container::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            opacity: 0.03; z-index: -1; transform: scale(1.5); filter: blur(2px);
+        }
 
         /* --- STATS & ABOUT --- */
         .about-container { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
@@ -168,7 +209,17 @@
         .stat-card p { font-size: 0.95rem; color: #fff; font-weight: 500; letter-spacing: 1px; }
 
         /* Terminal Window In About */
-        .kali-window-about { background: var(--bg-panel); border: 1px solid var(--border-dim); border-radius: 8px; overflow: hidden; font-family: var(--font-term); box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(5px); }
+        .kali-window-about { 
+            background: var(--bg-panel); border: 1px solid var(--border-dim); border-radius: 8px; overflow: hidden; font-family: var(--font-term); box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            position: relative;
+        }
+        /* Tambahkan visual jaring halus di sekitar terminal about */
+        .kali-window-about::before {
+            content: ''; position: absolute; top: -5px; right: -5px; width: 30px; height: 30px;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            opacity: 0.4; z-index: 10;
+        }
+        .kali-window-about:hover::before { opacity: 1; transform: scale(1.1); }
         .k-head { background: #0c0c12; padding: 10px 15px; border-bottom: 1px solid var(--border-dim); display: flex; gap: 8px; align-items: center;}
         .k-body { padding: 1.5rem; font-size: 0.95rem; line-height: 1.6; color: #ccc; }
         .ascii-art { color: var(--spidey-red); white-space: pre; font-weight: bold; line-height: 1.1; margin-bottom: 15px; text-shadow: 0 0 8px rgba(230,0,43,0.5); }
@@ -219,6 +270,13 @@
             background: var(--bg-panel); backdrop-filter: blur(12px); padding: 3rem 2rem; border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; position: relative; overflow: hidden; 
         }
+        /* Tambahkan ikon kustom di sudut */
+        .service-card::before {
+            content: ''; position: absolute; top: -5px; right: -5px; width: 30px; height: 30px;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            opacity: 0.4; z-index: 10;
+        }
+        .service-card:hover::before { opacity: 1; transform: scale(1.1); }
         .service-card::after { 
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; 
             background: linear-gradient(90deg, var(--spidey-red), var(--spidey-blue)); transform: scaleX(0); transform-origin: left; transition: 0.5s; 
@@ -246,7 +304,17 @@
 
         /* --- PROJECTS --- */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2.5rem; }
-        .project-card { background: var(--bg-panel); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; display: flex; flex-direction: column; overflow: hidden; }
+        .project-card { 
+            background: var(--bg-panel); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; display: flex; flex-direction: column; overflow: hidden;
+            position: relative;
+        }
+        /* Tambahkan ikon kustom di sudut */
+        .project-card::before {
+            content: ''; position: absolute; top: -5px; right: -5px; width: 30px; height: 30px;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            opacity: 0.4; z-index: 10;
+        }
+        .project-card:hover::before { opacity: 1; transform: scale(1.1); }
         .project-card:hover { border-color: var(--spidey-blue); transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0, 89, 255, 0.15); }
         .project-header { padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.4); border-bottom: 1px solid rgba(255,255,255,0.05); }
         .project-header i { font-size: 1.8rem; color: var(--text-dim); transition: 0.4s; }
@@ -273,7 +341,16 @@
         .form-group:focus-within label { color: var(--spidey-red); transform: translateX(5px); }
         .form-group:focus-within label i { color: var(--spidey-red); }
         
-        footer { padding: 4rem 8% 2rem 8%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 5rem; background: rgba(0,0,0,0.5); }
+        footer { 
+            padding: 4rem 8% 2rem 8%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 5rem; background: rgba(0,0,0,0.5); 
+            position: relative; overflow: hidden;
+        }
+        /* Tambahkan visual kustom di footer */
+        footer::before {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 200px; height: 200px;
+            background-image: var(--spidey-mask); background-size: contain; background-repeat: no-repeat;
+            opacity: 0.05; z-index: -1; transform: translate(10%, 10%); filter: blur(2px);
+        }
         .social-links { margin-bottom: 2rem; }
         .social-links a { display: inline-flex; width: 50px; height: 50px; border: 1px solid rgba(255,255,255,0.1); align-items: center; justify-content: center; margin: 0 0.8rem; transition: 0.4s; font-size: 1.3rem; color: var(--text-dim); background: var(--bg-panel); border-radius: 50%; }
         .social-links a:hover { background: var(--spidey-red); color: #fff; border-color: var(--spidey-red); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(230,0,43,0.3); }
@@ -304,7 +381,7 @@
     <div id="bg-canvas"></div>
 
     <nav>
-        <div class="logo"><i class="fas fa-spider"></i> HAIDAR<span>ADLN</span></div>
+        <div class="logo"><div class="spidey-mask-icon"></div> HAIDAR<span>ADLN</span></div>
         <div class="nav-links">
             <a href="#about">Profil</a>
             <a href="#expertise">Tools</a>
