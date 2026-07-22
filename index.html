@@ -41,7 +41,8 @@
             font-family: var(--font-body);
             background-color: var(--bg-main);
             color: var(--ink);
-            overflow-x: hidden;
+            /* PERBAIKAN: Mengganti hidden menjadi clip agar animasi AOS tidak blank */
+            overflow-x: clip; 
             line-height: 1.6;
         }
         h1, h2, h3, h4, .logo { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.3px; }
