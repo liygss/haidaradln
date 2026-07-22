@@ -491,63 +491,9 @@
             <h2>PORTOFOLIO RISET</h2>
             <div class="underline"></div>
         </div>
-        <div class="projects-grid">
-
-            <div class="project-card" data-aos="fade-up">
-                <div class="project-image">
-                    <img src="forecastingtimeseries.png" alt="Forecasting Time Series">
-                    <div class="project-overlay">
-                        <a href="https://colab.research.google.com/drive/1p_4rpuaBBKOorHZLNSHOztjphf6rGQLm?usp=sharing" class="btn-view"><i class="fas fa-eye"></i> Lihat Detail</a>
-                    </div>
-                </div>
-                <div class="project-body">
-                    <div class="project-id"><i class="fas fa-chart-line"></i> PROJECT ID: 001</div>
-                    <h3>Forecasting Penjualan</h3>
-                    <p>Melakukan forecasting dengan metode time series menggunakan permodelan SARIMA untuk memprediksi data penjualan ke depan.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">SARIMA</span>
-                        <span class="tech-tag">Scikit-learn</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="project-image">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800" alt="OSINT Scraper Bot">
-                    <div class="project-overlay">
-                        <a href="#" class="btn-view"><i class="fas fa-eye"></i> Lihat Detail</a>
-                    </div>
-                </div>
-                <div class="project-body">
-                    <div class="project-id"><i class="fas fa-globe-americas"></i> PROJECT ID: 002</div>
-                    <h3>Data Collection &amp; Automation Bot</h3>
-                    <p>Program bot otomasi untuk ekstraksi data dari berbagai sumber web secara terstruktur, digunakan untuk pengumpulan dataset penelitian.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Selenium</span>
-                        <span class="tech-tag">BeautifulSoup</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="project-image">
-                    <img src="penetration.png" alt="Penetration Testing">
-                    <div class="project-overlay">
-                        <a href="#" class="btn-view"><i class="fas fa-eye"></i> Lihat Detail</a>
-                    </div>
-                </div>
-                <div class="project-body">
-                    <div class="project-id"><i class="fas fa-shield-halved"></i> PROJECT ID: 003</div>
-                    <h3>Penetration Testing Web Sekolah</h3>
-                    <p>Melakukan penetration testing untuk mengidentifikasi celah keamanan SQL injection pada web sekolah.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">SQL Injection</span>
-                        <span class="tech-tag">SQLmap</span>
-                    </div>
-                </div>
-            </div>
-
+        
+        <!-- Wadah ini akan diisi secara otomatis oleh JavaScript -->
+        <div class="projects-grid" id="projects-container">
         </div>
     </section>
 
@@ -618,6 +564,80 @@
             }
             setTimeout(type, speed);
         }());
+
+        // ==========================================
+        // DATA PROJECT (TAMBAHKAN PROJECT BARU DISINI)
+        // ==========================================
+        const projectsData = [
+            {
+                id: "001",
+                icon: "fa-chart-line",
+                title: "Forecasting Penjualan",
+                image: "forecastingtimeseries.png",
+                link: "https://colab.research.google.com/drive/1p_4rpuaBBKOorHZLNSHOztjphf6rGQLm?usp=sharing",
+                desc: "Melakukan forecasting dengan metode time series menggunakan permodelan SARIMA untuk memprediksi data penjualan ke depan.",
+                techStack: ["Python", "SARIMA", "Scikit-learn"]
+            },
+            {
+                id: "002",
+                icon: "fa-globe-americas",
+                title: "Data Collection & Automation Bot",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=800",
+                link: "#",
+                desc: "Program bot otomasi untuk ekstraksi data dari berbagai sumber web secara terstruktur, digunakan untuk pengumpulan dataset penelitian.",
+                techStack: ["Selenium", "BeautifulSoup"]
+            },
+            {
+                id: "003",
+                icon: "fa-shield-halved",
+                title: "Penetration Testing Web Sekolah",
+                image: "penetration.png",
+                link: "#",
+                desc: "Melakukan penetration testing untuk mengidentifikasi celah keamanan SQL injection pada web sekolah.",
+                techStack: ["SQL Injection", "SQLmap"]
+            }
+            // Tambahkan data project lainnya di sini sesuai format di atas
+        ];
+
+        // ==========================================
+        // FUNGSI UNTUK MERENDER PROJECT KE HTML
+        // ==========================================
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            let htmlContent = '';
+
+            projectsData.forEach((project, index) => {
+                // Mengatur efek delay AOS (0, 100, 200 berulang)
+                const delay = (index % 3) * 100;
+                
+                // Membuat tag span untuk setiap teknologi di techStack
+                const techTags = project.techStack.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
+
+                htmlContent += `
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="${delay}">
+                        <div class="project-image">
+                            <img src="${project.image}" alt="${project.title}">
+                            <div class="project-overlay">
+                                <a href="${project.link}" class="btn-view"><i class="fas fa-eye"></i> Lihat Detail</a>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-id"><i class="fas ${project.icon}"></i> PROJECT ID: ${project.id}</div>
+                            <h3>${project.title}</h3>
+                            <p>${project.desc}</p>
+                            <div class="tech-stack">
+                                ${techTags}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Panggil fungsi render saat halaman dimuat
+        renderProjects();
     </script>
 </body>
 </html>
